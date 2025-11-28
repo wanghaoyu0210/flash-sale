@@ -1,0 +1,52 @@
+services:
+  zookeeper:
+    image: zookeeper:latest
+    container_name: zookeeper
+    ports:
+      - "2181:2181"
+    volumes:
+      - "./config/zookeeper/data:/data"
+    environment:
+      - ZOO_TLS_CLIENT_AUTH=none
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    command: redis-server --requirepass password123!
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./config/redis/data:/data"
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - "./config/rabbitmq/data:/var/lib/rabbitmq"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: password123!
+    restart: unless-stopped
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./config/mongodb/data:/data/db"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123!
+    restart: unless-stopped
+
+volumes:
+  zookeeper_data:
+  redis_data:
+  rabbitmq_data:
+  mongodb_data:

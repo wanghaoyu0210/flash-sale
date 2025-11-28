@@ -1,0 +1,25 @@
+server:
+  port: "8080"
+
+redis:
+  addr: "localhost:6379"
+  password: "password123!"
+  db: 0
+
+rabbitmq:
+  url: "amqp://admin:password123!@localhost:5672/"
+
+zookeeper:
+  hosts:
+    - "localhost:2181"
+  timeout: 5s
+  root_path: "/seckill"
+
+rate_limit:
+  requests: 100
+  duration: 60s
+
+seckill:
+  product_id: "iphone17_pro_max_001"
+  total_stock: 1000
+  seckill_price: 5999
